@@ -1,4 +1,4 @@
-package com.example.stockportfoliotracker
+package com.example.stockportfoliotracker.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +9,6 @@ import com.example.stockportfoliotracker.databinding.ActivityMainBinding
 import com.example.stockportfoliotracker.fragments.PortfolioFragment
 import com.example.stockportfoliotracker.fragments.SummaryFragment
 import com.example.stockportfoliotracker.utils.FirebaseUtils
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {

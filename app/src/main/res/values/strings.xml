@@ -12,4 +12,11 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="server_client_id">AIzaSyDVTEBRRVHpUpijX7deSrC3CLCB41RmEiU</string>
+    <string name="todo">TODO</string>
+    <string name="buy_price">Buy Price</string>
+    <string name="units">Units</string>
+    <string name="date">Date</string>
+    <string name="sell_price">Sell Price</string>
+    <string name="name">Name</string>
+    <string name="add">Add</string>
 </resources>

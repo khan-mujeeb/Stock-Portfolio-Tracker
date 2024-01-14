@@ -7,4 +7,6 @@ object FirebaseUtils {
     var firebaseAuth = FirebaseAuth.getInstance()
     var firebaseUser = firebaseAuth.currentUser
     var firebaseDatabase = FirebaseDatabase.getInstance()
+
+    var phoneNumber = firebaseUser!!.phoneNumber
 }

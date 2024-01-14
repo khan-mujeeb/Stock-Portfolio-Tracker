@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.example.stockportfoliotracker.MainActivity
+import com.example.stockportfoliotracker.activity.MainActivity
 import com.example.stockportfoliotracker.databinding.ActivityOtpactivityBinding
 import com.example.stockportfoliotracker.utils.FirebaseUtils
 import com.google.firebase.FirebaseException

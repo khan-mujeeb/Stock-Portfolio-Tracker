@@ -21,20 +21,10 @@ import com.github.mikephil.charting.formatter.LargeValueFormatter
 class SummaryFragment : Fragment() {
 
     val labels = arrayListOf("2024", "2023", "2022", "2021", "2020")
-    // variables for our bar chart
     lateinit var barChart: BarChart
-
-    // on below line we are creating
-    // a variable for bar data
     lateinit var barData: BarData
-
-    // on below line we are creating a
-    // variable for bar data set
     lateinit var barDataSet: BarDataSet
-
-    // on below line we are creating array list for bar data
     lateinit var barEntriesList: ArrayList<BarEntry>
-
     private var binding: FragmentSummaryBinding? = null
 
     override fun onCreateView(
