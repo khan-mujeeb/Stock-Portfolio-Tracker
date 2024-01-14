@@ -19,4 +19,9 @@
     <string name="sell_price">Sell Price</string>
     <string name="name">Name</string>
     <string name="add">Add</string>
+    <string name="sell_date">Sell Date</string>
+    <string name="buy_date">Buy Date</string>
+    <string name="investment">Investment</string>
+    <string name="proft">Profit</string>
+    <string name="change">Change</string>
 </resources>

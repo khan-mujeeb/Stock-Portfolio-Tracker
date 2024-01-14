@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center_vertical"
+    android:orientation="vertical"
     android:padding="10dp"
     tools:context=".activity.AddStock">
 
@@ -18,34 +18,48 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:orientation="vertical"
 
-            android:orientation="vertical">
+            android:padding="8dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/stockName"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:hint="@string/name"
-                android:maxLines="1"
-                android:inputType="text" />
+                android:inputType="text"
+                android:maxLines="1" />
 
-<!--            <include-->
-<!--                android:id="@+id/sppacer"-->
-<!--                layout="@layout/spacer" />-->
+            <!--            <include-->
+            <!--                android:id="@+id/sppacer"-->
+            <!--                layout="@layout/spacer" />-->
 
             <TextView
-                android:gravity="center_vertical"
-                android:id="@+id/btnDatePicker"
-                android:focusable="false"
-                android:textSize="19sp"
+                android:id="@+id/buyDatePicker"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:hint="@string/date"
-                 />
-<!--            <include-->
-<!--                android:id="@+id/sppacer"-->
-<!--                layout="@layout/spacer" />-->
+                android:drawableStart="@drawable/ic_calendar"
+                android:drawablePadding="10dp"
+                android:focusable="false"
+                android:gravity="center_vertical"
+                android:hint="@string/sell_date"
+                android:textSize="19sp" />
+
+            <TextView
+                android:id="@+id/sellDatePicker"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:drawableStart="@drawable/ic_calendar"
+                android:drawablePadding="10dp"
+                android:focusable="false"
+                android:gravity="center_vertical"
+                android:hint="@string/buy_date"
+                android:textSize="19sp" />
+
+
+            <!--            <include-->
+            <!--                android:id="@+id/sppacer"-->
+            <!--                layout="@layout/spacer" />-->
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/units"
@@ -53,9 +67,9 @@
                 android:layout_height="70dp"
                 android:hint="@string/units"
                 android:inputType="number" />
-<!--            <include-->
-<!--                android:id="@+id/sppacer"-->
-<!--                layout="@layout/spacer" />-->
+            <!--            <include-->
+            <!--                android:id="@+id/sppacer"-->
+            <!--                layout="@layout/spacer" />-->
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/buyPrice"
@@ -64,9 +78,9 @@
                 android:hint="@string/buy_price"
                 android:inputType="numberDecimal" />
 
-<!--            <include-->
-<!--                android:id="@+id/sppacer"-->
-<!--                layout="@layout/spacer" />-->
+            <!--            <include-->
+            <!--                android:id="@+id/sppacer"-->
+            <!--                layout="@layout/spacer" />-->
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/sellPrice"
@@ -75,10 +89,9 @@
                 android:hint="@string/sell_price"
                 android:inputType="numberDecimal" />
 
-<!--            <include-->
-<!--                android:id="@+id/sppacer"-->
-<!--                layout="@layout/spacer" />-->
-
+            <!--            <include-->
+            <!--                android:id="@+id/sppacer"-->
+            <!--                layout="@layout/spacer" />-->
 
 
         </LinearLayout>
@@ -86,11 +99,10 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/addStockButton"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:text="@string/add"
-        android:id="@+id/addStockButton"
-        />
+        android:text="@string/add" />
 </LinearLayout>
 
 

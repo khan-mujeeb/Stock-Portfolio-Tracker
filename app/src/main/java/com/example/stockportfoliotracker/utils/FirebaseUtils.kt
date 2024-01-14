@@ -8,5 +8,4 @@ object FirebaseUtils {
     var firebaseUser = firebaseAuth.currentUser
     var firebaseDatabase = FirebaseDatabase.getInstance()
 
-    var phoneNumber = firebaseUser!!.phoneNumber
 }
