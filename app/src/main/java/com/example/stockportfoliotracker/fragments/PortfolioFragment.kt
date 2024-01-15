@@ -48,7 +48,7 @@ class PortfolioFragment : Fragment() {
 
             if (it.isNotEmpty()) {
                 println(it.size.toString() + "khan "+ it)
-                binding!!.stockListRc.adapter = StockListAdapter(it)
+                binding!!.stockListRc.adapter = StockListAdapter(requireActivity(), it)
 
                 binding!!.stockListRc.visibility = View.VISIBLE
                 binding!!.noStockText.visibility = View.GONE

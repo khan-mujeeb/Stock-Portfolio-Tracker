@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.stockportfoliotracker.data.Stock
 import com.example.stockportfoliotracker.data.StockItemView
 import com.example.stockportfoliotracker.data.User
 import com.example.stockportfoliotracker.utils.FirebaseUtils
@@ -73,6 +74,8 @@ class FirebaseRepository {
 
         return stockList
     }
+
+    // get Stock details
 
 
 

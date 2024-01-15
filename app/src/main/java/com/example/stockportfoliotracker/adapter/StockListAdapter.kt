@@ -1,15 +1,19 @@
 package com.example.stockportfoliotracker.adapter
 
-import android.os.Build.VERSION_CODES.R
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stockportfoliotracker.R
+import com.example.stockportfoliotracker.activity.AddStock
+import com.example.stockportfoliotracker.activity.StockDetailsActivity
 import com.example.stockportfoliotracker.data.StockItemView
 
-class StockListAdapter(private val stockList: List<StockItemView>) :
+class StockListAdapter(val context: Context, private val stockList: List<StockItemView>) :
     RecyclerView.Adapter<StockListAdapter.StockViewHolder>() {
 
     class StockViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -29,14 +33,18 @@ class StockListAdapter(private val stockList: List<StockItemView>) :
     override fun onBindViewHolder(holder: StockViewHolder, position: Int) {
         val stockItem = stockList[position]
 
-        println("virat " + stockItem)
 
-
-        holder.invested.text = stockItem.stockInfo.investedAmount.toString()
-        holder.profit.text = stockItem.stockInfo.profitAmount.toString()
+        holder.invested.text = "₹${stockItem.stockInfo.investedAmount}"
+        holder.profit.text = "₹${stockItem.stockInfo.profitAmount}"
         holder.stockName.text = stockItem.stockInfo.stockName
-        holder.units.text = stockItem.stockInfo.stockName
-        holder.change.text = stockItem.stockInfo.profitGain.toString()
+        holder.units.text = stockItem.stockInfo.units.toString()
+        holder.change.text = "${stockItem.stockInfo.profitGain}%"
+
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, StockDetailsActivity::class.java)
+            intent.putExtra("stockInfo", stockItem.stockInfo)
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {

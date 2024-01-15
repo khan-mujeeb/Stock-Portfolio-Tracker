@@ -82,15 +82,24 @@ class AddStock : AppCompatActivity() {
 
                     stockRef.child("list").child(uniqueId).setValue(stock)
                         .addOnSuccessListener {
-                            val investedAmount = stockInfo!!.investedAmount + stock.buyPrice * stock.units
-                            val profit =
-                                stockInfo.profitAmount + (stock.sellPrice - stock.buyPrice) * stock.units
-                            val profitGain = (profit / investedAmount) * 100
+
+                            val investedAmount = String.format(
+                                "%.2f",
+                                (stockInfo!!.investedAmount + stock.buyPrice * stock.units)
+                            ).toDouble()
+                            val profit = String.format(
+                                "%.2f",
+                                (stockInfo.profitAmount + (stock.sellPrice - stock.buyPrice) * stock.units)
+                            ).toDouble()
+                            val profitGain =
+                                String.format("%.2f", (profit / investedAmount) * 100).toDouble()
+
+                            val units = stockInfo.units + stock.units
 
                             stockRef.child("stockInfo").setValue(
                                 StockInfo(
                                     stock.name,
-                                    investedAmount, profit, profitGain
+                                    investedAmount, profit, profitGain, units
                                 )
                             ).addOnCompleteListener {
                                 handleStockAddSuccess()
@@ -103,13 +112,19 @@ class AddStock : AppCompatActivity() {
                 } else {
                     stockRef.child("list").child(uniqueId).setValue(stock)
                         .addOnSuccessListener {
-                            val investedAmount = stock.buyPrice * stock.units
-                            val profit = (stock.sellPrice - stock.buyPrice) * stock.units
-                            val change = (profit / investedAmount) * 100
+                            val investedAmount =
+                                String.format("%.2f", stock.buyPrice * stock.units).toDouble()
+                            val profit = String.format(
+                                "%.2f",
+                                (stock.sellPrice - stock.buyPrice) * stock.units
+                            ).toDouble()
+                            val change =
+                                String.format("%.2f", (profit / investedAmount) * 100).toDouble()
+                            val units = stock.units
 
                             stockRef.child("stockInfo").setValue(
                                 StockInfo(
-                                    stock.name, investedAmount, profit, change
+                                    stock.name, investedAmount, profit, change, units
                                 )
                             ).addOnCompleteListener {
                                 handleStockAddSuccess()

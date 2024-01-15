@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingHorizontal="12dp"
+    tools:context=".activity.StockDetailsActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:gravity="center"
+        android:text="CHD CHECMICALS"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:id="@+id/stockName"
+        android:textSize="23sp"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:id="@+id/invested"
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:text="@string/investment"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/investedText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="000" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/proft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/invested"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="6dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/proft" />
+
+            <TextView
+                android:id="@+id/profitText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="000" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/units"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/units" />
+
+            <TextView
+                android:id="@+id/unitsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="000" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/invested"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="6dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/change" />
+
+            <TextView
+                android:id="@+id/changeText"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="000" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/stockDetailsRc"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        tools:listitem="@layout/stock_details_itemview"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_height="match_parent" />
+</LinearLayout>
