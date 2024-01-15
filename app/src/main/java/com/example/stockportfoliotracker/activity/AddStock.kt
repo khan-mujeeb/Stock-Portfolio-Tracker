@@ -2,8 +2,6 @@ package com.example.stockportfoliotracker.activity
 
 import android.app.DatePickerDialog
 import android.content.Intent
-import android.icu.text.SimpleDateFormat
-import android.icu.util.Calendar
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
@@ -18,25 +16,25 @@ import com.example.stockportfoliotracker.utils.FirebaseUtils.firebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Locale
 
 class AddStock : AppCompatActivity() {
 
     private lateinit var dialog: AlertDialog
-    var binding: ActivityAddStockBinding? = null
+    private var binding: ActivityAddStockBinding? = null
     private val calendar = Calendar.getInstance()
     private var selectedBuyDate = ""
     private var selectedSellDate = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityAddStockBinding.inflate(layoutInflater)
         setContentView(binding?.root)
-
         variableInit()
         subscribeUi()
         subscribeClicks()
-
     }
 
     private fun variableInit() {
@@ -44,7 +42,7 @@ class AddStock : AppCompatActivity() {
     }
 
     private fun subscribeUi() {
-//        setInitialDate()
+        // setInitialDate() // If you need this, uncomment and implement it
     }
 
     private fun subscribeClicks() {
@@ -54,8 +52,7 @@ class AddStock : AppCompatActivity() {
 
     private fun addStock() {
         binding!!.addStockButton.setOnClickListener {
-            if (vaildateInput()) {
-
+            if (validateInput()) {
                 dialog.show()
                 val stock = Stock(
                     binding!!.stockName.text.toString(),
@@ -65,9 +62,7 @@ class AddStock : AppCompatActivity() {
                     binding!!.buyPrice.text.toString().toDouble(),
                     binding!!.sellPrice.text.toString().toDouble()
                 )
-
                 addStockToFb(stock)
-
             } else {
                 Toast.makeText(this, "Please enter all the fields", Toast.LENGTH_SHORT).show()
             }
@@ -75,7 +70,6 @@ class AddStock : AppCompatActivity() {
     }
 
     private fun addStockToFb(stock: Stock) {
-
         val databaseReference = firebaseDatabase.reference
         val stockRef = databaseReference.child(firebaseUser!!.uid).child("stocks")
             .child(stock.name)
@@ -88,68 +82,41 @@ class AddStock : AppCompatActivity() {
 
                     stockRef.child("list").child(uniqueId).setValue(stock)
                         .addOnSuccessListener {
-
                             val investedAmount = stockInfo!!.investedAmount + stock.buyPrice * stock.units
-                            val profit = stockInfo.profitAmount + (stock.sellPrice - stock.buyPrice) * stock.units
+                            val profit =
+                                stockInfo.profitAmount + (stock.sellPrice - stock.buyPrice) * stock.units
                             val profitGain = (profit / investedAmount) * 100
 
                             stockRef.child("stockInfo").setValue(
                                 StockInfo(
+                                    stock.name,
                                     investedAmount, profit, profitGain
                                 )
                             ).addOnCompleteListener {
-                                dialog.dismiss()
-                                Toast.makeText(
-                                    this@AddStock,
-                                    "Stock added successfully",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                startActivity(
-                                    Intent(this@AddStock, MainActivity::class.java)
-                                )
-                                finish()
+                                handleStockAddSuccess()
                             }
-
                         }
                         .addOnFailureListener {
-                            dialog.dismiss()
-                            startActivity(
-                                Intent(this@AddStock, MainActivity::class.java)
-                            )
-                            Toast.makeText(this@AddStock, "Failed to add stock", Toast.LENGTH_SHORT)
-                                .show()
+                            handleStockAddFailure()
                         }
 
                 } else {
                     stockRef.child("list").child(uniqueId).setValue(stock)
                         .addOnSuccessListener {
                             val investedAmount = stock.buyPrice * stock.units
-                            val profit = (stock.sellPrice - stock.buyPrice)*stock.units
+                            val profit = (stock.sellPrice - stock.buyPrice) * stock.units
                             val change = (profit / investedAmount) * 100
+
                             stockRef.child("stockInfo").setValue(
                                 StockInfo(
-                                    investedAmount, profit, change
+                                    stock.name, investedAmount, profit, change
                                 )
                             ).addOnCompleteListener {
-                                dialog.dismiss()
-                                Toast.makeText(
-                                    this@AddStock,
-                                    "Stock added successfully",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                startActivity(
-                                    Intent(this@AddStock, MainActivity::class.java)
-                                )
-                                finish()
+                                handleStockAddSuccess()
                             }
                         }
                         .addOnFailureListener {
-                            dialog.dismiss()
-                            startActivity(
-                                Intent(this@AddStock, MainActivity::class.java)
-                            )
-                            Toast.makeText(this@AddStock, "Failed to add stock", Toast.LENGTH_SHORT)
-                                .show()
+                            handleStockAddFailure()
                         }
                 }
             }
@@ -160,6 +127,18 @@ class AddStock : AppCompatActivity() {
         })
     }
 
+    private fun handleStockAddSuccess() {
+        dialog.dismiss()
+        Toast.makeText(this@AddStock, "Stock added successfully", Toast.LENGTH_SHORT).show()
+        startActivity(Intent(this@AddStock, MainActivity::class.java))
+        finish()
+    }
+
+    private fun handleStockAddFailure() {
+        dialog.dismiss()
+        startActivity(Intent(this@AddStock, MainActivity::class.java))
+        Toast.makeText(this@AddStock, "Failed to add stock", Toast.LENGTH_SHORT).show()
+    }
 
     private fun selectDate() {
         binding!!.buyDatePicker.setOnClickListener {
@@ -181,12 +160,12 @@ class AddStock : AppCompatActivity() {
                 val formattedDate = dateFormat.format(selectedDate.time)
 
                 if (from == "buy") {
-                    this.selectedBuyDate = formattedDate.toString()
+                    selectedBuyDate = formattedDate
                 } else {
-                    this.selectedSellDate = formattedDate.toString()
+                    selectedSellDate = formattedDate
                 }
 
-                view.text = formattedDate.toString()
+                view.text = formattedDate
 
             },
             calendar.get(Calendar.YEAR),
@@ -197,19 +176,11 @@ class AddStock : AppCompatActivity() {
         datePickerDialog.show()
     }
 
-    private fun vaildateInput(): Boolean {
+    private fun validateInput(): Boolean {
         return binding!!.stockName.text.toString().isNotEmpty()
                 && binding!!.units.text.toString().isNotEmpty()
                 && binding!!.buyPrice.text.toString().isNotEmpty()
                 && binding!!.sellPrice.text.toString().isNotEmpty()
                 && selectedBuyDate.isNotEmpty() && selectedSellDate.isNotEmpty()
     }
-
-//    private fun setInitialDate() {
-//        val initialDate = Calendar.getInstance()
-//        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-//        val formattedDate = dateFormat.format(initialDate.time)
-//        binding!!.btnDatePicker.text = formattedDate
-//        this.selectedDate = formattedDate
-//    }
 }

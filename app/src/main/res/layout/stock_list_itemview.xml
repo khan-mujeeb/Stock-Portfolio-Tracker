@@ -32,7 +32,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:id="@+id/investedText"
             android:text="000"/>
     </LinearLayout>
 
@@ -53,7 +53,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:id="@+id/profitText"
             android:text="000"/>
     </LinearLayout>
 
@@ -75,7 +75,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:id="@+id/unitsText"
             android:text="000"/>
     </LinearLayout>
 
@@ -97,7 +97,7 @@
             android:layout_width="wrap_content"
 
             android:layout_height="wrap_content"
-
+            android:id="@+id/changeText"
             android:text="000"/>
     </LinearLayout>
 
