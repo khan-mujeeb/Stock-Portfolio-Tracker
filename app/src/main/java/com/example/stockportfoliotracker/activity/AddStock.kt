@@ -111,7 +111,7 @@ class AddStock : AppCompatActivity() {
                                     investedAmount, profit, profitGain, units
                                 )
                             ).addOnCompleteListener {
-                                handleStockAddSuccess(temp)
+                                handleStockAddSuccess(temp, stock.sellDate)
                             }
                         }
                         .addOnFailureListener {
@@ -137,7 +137,7 @@ class AddStock : AppCompatActivity() {
                             stockRef.child("stockInfo").setValue(
                                 temp
                             ).addOnCompleteListener {
-                                handleStockAddSuccess(temp)
+                                handleStockAddSuccess(temp, stock.sellDate)
                             }
                         }
                         .addOnFailureListener {
@@ -152,9 +152,15 @@ class AddStock : AppCompatActivity() {
         })
     }
 
-    private fun handleStockAddSuccess(stockInfo: StockInfo) {
-        dialog.dismiss()
+    private fun handleStockAddSuccess(stockInfo: StockInfo, sellDate: String) {
+
+
         viewModel.addUpdateOverviewData(stockInfo)
+        val year = sellDate.substring(6, 10)
+
+
+
+        dialog.dismiss()
         Toast.makeText(this@AddStock, "Stock added successfully", Toast.LENGTH_SHORT).show()
         startActivity(Intent(this@AddStock, MainActivity::class.java))
         finish()

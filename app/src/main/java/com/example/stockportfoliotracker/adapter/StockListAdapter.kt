@@ -13,7 +13,7 @@ import com.example.stockportfoliotracker.activity.AddStock
 import com.example.stockportfoliotracker.activity.StockDetailsActivity
 import com.example.stockportfoliotracker.data.StockItemView
 
-class StockListAdapter(val context: Context, private val stockList: List<StockItemView>) :
+class StockListAdapter(val context: Context, private var stockList: List<StockItemView>) :
     RecyclerView.Adapter<StockListAdapter.StockViewHolder>() {
 
     class StockViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -51,5 +51,10 @@ class StockListAdapter(val context: Context, private val stockList: List<StockIt
         return stockList.size
     }
 
+    fun filterList(filterlist: List<StockItemView>) {
+
+        stockList = filterlist
+        notifyDataSetChanged()
+    }
 
 }

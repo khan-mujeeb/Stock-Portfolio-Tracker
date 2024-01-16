@@ -6,15 +6,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.PortfolioFragment">
 
+    <EditText
+        android:background="@drawable/search_edittext_bg"
+        android:drawablePadding="10dp"
+        android:padding="12dp"
+        android:textColorHint="@color/gray"
+        android:drawableStart="@drawable/ic_baseline_search_24"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/search"
+        android:id="@+id/search"
+        android:textColor="@color/black"
+        android:elevation="10dp"
+
+        android:layout_margin="10dp"
+        android:maxLines="1"
+        android:inputType="text"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:id="@+id/stockListRc"
-        android:padding="12dp"
+        android:paddingHorizontal="12dp"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/stock_list_itemview"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
+        android:layout_below="@id/search"
         android:layout_alignParentEnd="true"/>
 
     <TextView

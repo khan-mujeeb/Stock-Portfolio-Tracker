@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.stockportfoliotracker.data.StockInfo
 import com.example.stockportfoliotracker.data.StockItemView
 import com.example.stockportfoliotracker.data.User
+import com.example.stockportfoliotracker.data.YearlyProfit
 import com.example.stockportfoliotracker.utils.FirebaseUtils
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -85,6 +86,36 @@ class FirebaseRepository {
             })
 
     }
+
+//    fun addYearWiseData(data: YearlyProfit) {
+//        databaseReference.child(FirebaseUtils.firebaseUser!!.uid)
+//            .child("yearlyData").addListenerForSingleValueEvent(object : ValueEventListener {
+//                override fun onDataChange(snapshot: DataSnapshot) {
+//                    if (snapshot.exists()) {
+//                        val yearlyData = snapshot.getValue(YearlyProfit::class.java)
+//
+//                        val investedAmount = yearlyData!! + data.investedAmount
+//                        val profitAmount = yearlyData.profitAmount + data.profitAmount
+//                        val profitGain =  String.format("%.2f", (profitAmount / investedAmount) * 100).toDouble()
+//
+//                        val updatedData = YearlyProfit(
+//                            yearlyData.year,
+//                            profitAmount,
+//                        )
+////                        println("investedAmount: ${yearlyData!!.investedAmount} + ${data.investedAmount} = $investedAmount")
+////                        addYearlyData(updatedData)
+//
+//                    } else {
+//                        addYearlyData(data)
+//                    }
+//                }
+//
+//                override fun onCancelled(error: DatabaseError) {
+//                    // Handle error if needed
+//
+//                }
+//            })
+//    }
 
     fun addStockInfo(stockInfo: StockInfo) {
 
