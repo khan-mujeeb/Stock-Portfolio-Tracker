@@ -1,127 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
     android:orientation="vertical"
-    android:paddingHorizontal="12dp"
     tools:context=".activity.StockDetailsActivity">
 
-    <TextView
+    <com.google.android.material.appbar.MaterialToolbar
+
+        android:gravity="center_vertical"
+        app:navigationIcon="@drawable/baseline_arrow_back_24"
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:gravity="center"
-        android:text="CHD CHECMICALS"
-        android:textAlignment="center"
-        android:textAllCaps="true"
+        app:titleCentered="true"
+        app:titleTextColor="@color/black"
         android:id="@+id/stockName"
-        android:textSize="23sp"
-        android:textStyle="bold" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"/>
 
 
         <LinearLayout
-            android:id="@+id/invested"
-            android:layout_width="wrap_content"
+            android:padding="12dp"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="0.7dp"
+                android:background="@color/gray" />
 
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-
-                android:layout_height="wrap_content"
-                android:text="@string/investment"
-                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/investedText"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="000" />
+                android:layout_marginTop="10dp"
+                android:paddingHorizontal="8dp"
+                android:text="Overview"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                style="@style/card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="8dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/invested"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            style="@style/textHeading"
+                            android:layout_height="wrap_content"
+                            android:text="@string/investment"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:textColor="@color/gold"
+
+                            style="@style/textSubHeading"
+                            android:id="@+id/investedText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="000" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/proft"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:gravity="end"
+                        android:layout_marginTop="6dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/textHeading"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/proft" />
+
+                        <TextView
+                            android:textColor="@color/seaGreen"
+                            style="@style/textSubHeading"
+                            android:id="@+id/profitText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="000" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/units"
+                        android:gravity="start"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/textHeading"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/units" />
+
+                        <TextView
+                            android:textColor="@color/gray"
+                            style="@style/textSubHeading"
+                            android:id="@+id/unitsText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="000" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/change"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:gravity="end"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/textHeading"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/change" />
+
+                        <TextView
+                            style="@style/textSubHeading"
+                            android:id="@+id/changeText"
+                            android:textColor="@color/seaGreen"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="000" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="0.7dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/gray" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingStart="8dp"
+                android:text="History"
+                android:textSize="18sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/stockDetailsRc"
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/stock_details_itemview" />
         </LinearLayout>
 
-
-        <LinearLayout
-            android:id="@+id/proft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/invested"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="6dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/proft" />
-
-            <TextView
-                android:id="@+id/profitText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="000" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/units"
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/units" />
-
-            <TextView
-                android:id="@+id/unitsText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="000" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/change"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/invested"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="6dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/change" />
-
-            <TextView
-                android:id="@+id/changeText"
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="000" />
-        </LinearLayout>
-    </RelativeLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/stockDetailsRc"
-        android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        tools:listitem="@layout/stock_details_itemview"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:layout_height="match_parent" />
 </LinearLayout>

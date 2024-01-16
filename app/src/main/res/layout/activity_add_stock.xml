@@ -4,105 +4,118 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_vertical"
     android:orientation="vertical"
-    android:padding="10dp"
+    android:background="@color/white"
     tools:context=".activity.AddStock">
 
-    <com.google.android.material.card.MaterialCardView
+    <com.google.android.material.appbar.MaterialToolbar
         android:layout_width="match_parent"
+        android:layout_gravity="top"
         android:layout_height="wrap_content"
-        android:elevation="10dp"
-        app:cardCornerRadius="8dp">
+        app:title="Add Stock"
+        app:titleTextColor="@color/black"
+        app:titleCentered="true"
+        app:navigationIcon="@drawable/baseline_arrow_back_24"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
+    <LinearLayout
 
-            android:padding="8dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/stockName"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:hint="@string/name"
-                android:inputType="text"
-                android:maxLines="1" />
-
-            <!--            <include-->
-            <!--                android:id="@+id/sppacer"-->
-            <!--                layout="@layout/spacer" />-->
-
-            <TextView
-                android:id="@+id/buyDatePicker"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:drawableStart="@drawable/ic_calendar"
-                android:drawablePadding="10dp"
-                android:focusable="false"
-                android:gravity="center_vertical"
-                android:hint="@string/sell_date"
-                android:textSize="19sp" />
-
-            <TextView
-                android:id="@+id/sellDatePicker"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:drawableStart="@drawable/ic_calendar"
-                android:drawablePadding="10dp"
-                android:focusable="false"
-                android:gravity="center_vertical"
-                android:hint="@string/buy_date"
-                android:textSize="19sp" />
-
-
-            <!--            <include-->
-            <!--                android:id="@+id/sppacer"-->
-            <!--                layout="@layout/spacer" />-->
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/units"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:hint="@string/units"
-                android:inputType="number" />
-            <!--            <include-->
-            <!--                android:id="@+id/sppacer"-->
-            <!--                layout="@layout/spacer" />-->
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/buyPrice"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:hint="@string/buy_price"
-                android:inputType="numberDecimal" />
-
-            <!--            <include-->
-            <!--                android:id="@+id/sppacer"-->
-            <!--                layout="@layout/spacer" />-->
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/sellPrice"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:hint="@string/sell_price"
-                android:inputType="numberDecimal" />
-
-            <!--            <include-->
-            <!--                android:id="@+id/sppacer"-->
-            <!--                layout="@layout/spacer" />-->
-
-
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/addStockButton"
+        android:gravity="center_vertical"
+        android:padding="12dp"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:text="@string/add" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <com.google.android.material.card.MaterialCardView
+            style="@style/card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+
+                android:padding="8dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/stockName"
+                    style="@style/editText"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gray"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:hint="@string/name"
+                    android:inputType="text"
+                    android:maxLines="1" />
+
+
+                <TextView
+                    android:id="@+id/buyDatePicker"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:drawablePadding="10dp"
+                    android:focusable="false"
+                    style="@style/textView"
+                    android:gravity="center_vertical"
+                    android:hint="@string/sell_date"
+                    android:textSize="19sp"
+                    app:drawableStartCompat="@drawable/ic_calendar" />
+
+                <TextView
+                    style="@style/textView"
+                    android:id="@+id/sellDatePicker"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:drawablePadding="10dp"
+                    android:focusable="false"
+                    android:gravity="center_vertical"
+                    android:hint="@string/buy_date"
+                    android:textSize="19sp"
+                    app:drawableStartCompat="@drawable/ic_calendar" />
+
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/units"
+                    style="@style/editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:hint="@string/units"
+                    android:inputType="number" />
+
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/buyPrice"
+                    style="@style/editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:hint="@string/buy_price"
+                    android:inputType="numberDecimal" />
+
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/sellPrice"
+                    style="@style/editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:hint="@string/sell_price"
+                    android:inputType="numberDecimal" />
+
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/addStockButton"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="@string/add" />
+    </LinearLayout>
+
+
+
+
 </LinearLayout>
 
 

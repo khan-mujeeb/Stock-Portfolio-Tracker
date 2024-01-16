@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -11,13 +13,23 @@
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
-        android:theme="@style/MyTabLayoutStyle" />
+        app:tabIndicator="@color/gray"
+        android:theme="@style/MyTabLayoutStyle"
+        app:tabTextColor="@color/white"
+        app:tabIndicatorColor="@color/gold"
+        app:tabSelectedTextColor="@color/gold"
+        app:tabIndicatorAnimationDuration="@integer/material_motion_duration_medium_2"
+        app:tabIndicatorHeight="2dp"
+
+        />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_weight="1"
+
         android:background="@android:color/white" />
 
 </LinearLayout>

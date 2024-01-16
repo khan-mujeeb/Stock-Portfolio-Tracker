@@ -41,14 +41,14 @@ class StockDetailAdapter(private val stockList: MutableList<Stock>) :
         val profitGain = (profitAmount / investedAmount) * 100
 
         // Set data to the views
-        holder.invested.text = investedAmount.toString()
-        holder.profit.text = profitAmount.toString()
+        holder.invested.text = "₹$investedAmount"
+        holder.profit.text = "₹$profitAmount"
         holder.units.text = stock.units.toString()
-        holder.change.text = profitGain.toString()
+        holder.change.text = "${profitGain}%"
         holder.buyDate.text = stock.buyDate
         holder.sellDate.text = stock.sellDate
-        holder.sellPrice.text = stock.sellPrice.toString()
-        holder.buyPrice.text = stock.buyPrice.toString()
+        holder.sellPrice.text = "₹${stock.sellPrice}"
+        holder.buyPrice.text = "₹${stock.buyPrice}"
     }
 
     override fun getItemCount(): Int {

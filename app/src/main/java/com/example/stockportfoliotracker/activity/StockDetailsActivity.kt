@@ -22,11 +22,15 @@ class StockDetailsActivity : AppCompatActivity() {
 
         val stockInfo = intent.getParcelableExtra<StockInfo>("stockInfo")
         binding?.apply {
-            stockName.text = stockInfo?.stockName
-            investedText.text = stockInfo?.investedAmount.toString()
-            profitText.text = stockInfo?.profitAmount.toString()
+            stockName.title = stockInfo?.stockName
+            investedText.text = "₹${stockInfo?.investedAmount}"
+            profitText.text = "₹${stockInfo?.profitAmount}"
             unitsText.text = stockInfo?.units.toString()
-            changeText.text = stockInfo?.profitGain.toString()
+            changeText.text = "${stockInfo?.profitGain}%"
+
+            binding!!.stockName.setNavigationOnClickListener {
+                onBackPressed()
+            }
 
 
             val databaseReference = FirebaseUtils.firebaseDatabase.reference

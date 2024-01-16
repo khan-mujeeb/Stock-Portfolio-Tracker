@@ -8,4 +8,36 @@
         <item name="tabIndicatorHeight">4dp</item>
         <!-- Add any other custom styles you want here -->
     </style>
+
+
+    <style name="card" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="cardBackgroundColor">@color/smokewhite</item>
+        <item name="cardCornerRadius">8dp</item>
+        <item name="android:layout_marginTop">1dp</item>
+        <item name="cardElevation">2dp</item>
+    </style>
+
+    <style name="textHeading" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="textSubHeading" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/jet</item>
+    </style>
+
+    <style name="editText" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColorHint">@color/gray</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="backgroundTint">@color/gray</item>
+    </style>
+
+    <style name="textView" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColorHint">@color/gray</item>
+        <item name="android:textColor">@color/black</item>
+
+    </style>
 </resources>

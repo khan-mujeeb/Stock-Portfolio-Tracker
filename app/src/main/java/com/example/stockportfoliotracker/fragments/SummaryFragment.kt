@@ -20,7 +20,7 @@ import com.github.mikephil.charting.formatter.LargeValueFormatter
 
 class SummaryFragment : Fragment() {
 
-    val labels = arrayListOf("2024", "2023", "2022", "2021", "2020")
+    val labels = arrayListOf( "2024", "2023", "2022", "2021", "2020")
     lateinit var barChart: BarChart
     lateinit var barData: BarData
     lateinit var barDataSet: BarDataSet
@@ -57,6 +57,8 @@ class SummaryFragment : Fragment() {
         barDataSet.valueTextSize = 13f
         barChart.description.isEnabled = false
         barChart.animateY(1000)
+        barChart.legend.isEnabled = false
+        barChart.setDrawBarShadow(true)
         barChart.setDrawBarShadow(false)
         barChart.setDrawMarkers(false)
         barChart.minimumWidth= 1700
@@ -91,6 +93,7 @@ class SummaryFragment : Fragment() {
     private fun getBarChartData() {
         barEntriesList = ArrayList()
 
+        barEntriesList.add(BarEntry(0f, 0f))
         barEntriesList.add(BarEntry(4f, 45000f))
         barEntriesList.add(BarEntry(3f, 32540f))
         barEntriesList.add(BarEntry(7f, 40000f))

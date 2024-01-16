@@ -10,6 +10,7 @@
 <!--    overview card -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/overviewCard"
+        style="@style/card"
         android:layout_width="match_parent"
         android:layout_alignParentTop="true"
         app:cardCornerRadius="8dp"
@@ -17,7 +18,7 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:padding="8dp"
+            android:padding="12dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -37,12 +38,15 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    style="@style/textHeading"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Invested Amount: " />
 
                 <TextView
+                    style="@style/textSubHeading"
+                    android:textColor="@color/gold"
                     android:id="@+id/investedAmount"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -58,12 +62,15 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    style="@style/textHeading"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Profit: " />
 
                 <TextView
+                    style="@style/textSubHeading"
+                    android:textColor="@color/seaGreen"
                     android:id="@+id/profitAmount"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -79,12 +86,15 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    style="@style/textHeading"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Increase by: " />
 
                 <TextView
+                    style="@style/textSubHeading"
+                    android:textColor="@color/gray"
                     android:id="@+id/gainPercentage"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -98,12 +108,17 @@
     </com.google.android.material.card.MaterialCardView>
 
 
-<!--    year wise card-->
-
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_below="@id/overviewCard"
+        android:layout_height="0.7dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/divider"
+        android:background="@color/gray" />
 
     <TextView
         android:textColor="@color/black"
-        android:layout_below="@id/overviewCard"
+        android:layout_below="@id/divider"
         android:layout_width="match_parent"
         android:text="Yearly Profit"
         android:id="@+id/yearlyProfit"

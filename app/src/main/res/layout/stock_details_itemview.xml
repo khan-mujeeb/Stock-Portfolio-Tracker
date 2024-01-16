@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="1dp"
     android:layout_marginHorizontal="5dp"
+    android:layout_marginTop="1dp"
     android:elevation="10dp"
     android:orientation="vertical"
     android:padding="8dp">
 
     <LinearLayout
-        android:padding="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,41 +24,50 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center_horizontal"
+                android:gravity="start"
                 android:orientation="vertical">
 
                 <TextView
+                    style="@style/textHeading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sell Price"
-                    android:textStyle="bold"/>
+                    android:text="Buy Price"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/sellPriceText"
+                    android:textColor="@color/charcoal"
+                    android:id="@+id/buyPriceTextView"
+                    style="@style/textSubHeading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="000"/>
+                    android:text="000" />
             </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center_horizontal"
+                android:gravity="end"
                 android:orientation="vertical">
 
                 <TextView
-                    android:textStyle="bold"
+                    style="@style/textHeading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Buy Price"/>
+                    android:text="Sell Price"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/buyPriceTextView"
+                    android:textColor="@color/charcoal"
+                    
+                    android:id="@+id/sellPriceText"
+                    style="@style/textSubHeading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="000"/>
+                    android:text="000" />
             </LinearLayout>
+
         </LinearLayout>
 
         <!-- First Row: Invested and Profit -->
@@ -72,20 +81,23 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center_horizontal"
+                android:gravity="start"
                 android:orientation="vertical">
 
                 <TextView
+                    style="@style/textHeading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/investment"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
+                    android:textColor="@color/gold"
+                    style="@style/textSubHeading"
                     android:id="@+id/investedText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="000"/>
+                    android:text="000" />
             </LinearLayout>
 
             <LinearLayout
@@ -93,20 +105,23 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center_horizontal"
+                android:gravity="end"
                 android:orientation="vertical">
 
                 <TextView
-                    android:textStyle="bold"
+                    style="@style/textHeading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/proft"/>
+                    android:text="@string/proft"
+                    android:textStyle="bold" />
 
                 <TextView
+                    android:textColor="@color/seaGreen"
+                    style="@style/textSubHeading"
                     android:id="@+id/profitText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="000"/>
+                    android:text="000" />
             </LinearLayout>
         </LinearLayout>
 
@@ -114,49 +129,55 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="8dp"
+            android:gravity="start"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/units"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:gravity="start"
                 android:orientation="vertical">
 
                 <TextView
+                    style="@style/textHeading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/units"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
+                    android:textColor="@color/gray"
+                    style="@style/textSubHeading"
                     android:id="@+id/unitsText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="000"/>
+                    android:text="000" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:gravity="end"
                 android:orientation="vertical">
 
                 <TextView
+                    style="@style/textHeading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/change"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
+                    android:textColor="@color/seaGreen"
+                    style="@style/textSubHeading"
                     android:id="@+id/changeText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="000"/>
+                    android:text="000" />
             </LinearLayout>
         </LinearLayout>
 
@@ -164,48 +185,52 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="0dp"
+
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:gravity="start"
                 android:orientation="vertical">
 
                 <TextView
+                    style="@style/textHeading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Buy Date"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
+                    style="@style/textSubHeading"
                     android:id="@+id/buyDateText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="22/7/2022"/>
+                    android:text="22/7/2022" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:gravity="end"
                 android:orientation="vertical">
 
                 <TextView
+                    style="@style/textHeading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sell Date"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
+                    style="@style/textSubHeading"
                     android:id="@+id/sellDateText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="22/7/2022"/>
+                    android:text="22/7/2022" />
             </LinearLayout>
 
             <!-- Duplicate Change Section Removed -->

@@ -10,4 +10,7 @@
     <color name="jet">#33312E</color>
     <color name="gray">#6D6A75</color>
     <color name="charcoal">#3D5467</color>
+    <color name="smokewhite">#F5F5F5</color>
+    <color name="seaGreen">#3A9260</color>
+    <color name="gold">#FDB735</color>
 </resources>
