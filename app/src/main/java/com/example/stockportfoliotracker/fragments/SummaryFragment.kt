@@ -6,8 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.ViewModelProvider
 import com.example.stockportfoliotracker.R
 import com.example.stockportfoliotracker.databinding.FragmentSummaryBinding
+import com.example.stockportfoliotracker.utils.DialogUtils
+import com.example.stockportfoliotracker.viewmodel.FirebaseViewModel
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
@@ -26,6 +30,8 @@ class SummaryFragment : Fragment() {
     lateinit var barDataSet: BarDataSet
     lateinit var barEntriesList: ArrayList<BarEntry>
     private var binding: FragmentSummaryBinding? = null
+    private lateinit var viewModel: FirebaseViewModel
+    private lateinit var dialog: AlertDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,12 +39,35 @@ class SummaryFragment : Fragment() {
     ): View? {
         binding = FragmentSummaryBinding.inflate(inflater, container, false)
 
-        barChart = binding!!.idBarChart
 
-        showBarChart(barChart)
+
+        varibaleInit()
+        subscribeUi()
+
 
 
         return binding?.root
+    }
+
+    private fun subscribeUi() {
+        showBarChart(barChart)
+        showOverViewData()
+    }
+
+    private fun showOverViewData() {
+        viewModel.readOverviewData().observe(viewLifecycleOwner) {
+            if (it != null) {
+                binding!!.investedAmount.text = "₹${it.investedAmount}"
+                binding!!.profitAmount.text = "₹${it.profitAmount}"
+                binding!!.gainPercentage.text = "${it.profitGain}%"
+            }
+        }
+    }
+
+    private fun varibaleInit() {
+        barChart = binding!!.idBarChart
+        dialog = DialogUtils.buildLoadingDialog(requireContext())
+        viewModel = ViewModelProvider(this)[FirebaseViewModel::class.java]
     }
 
     private fun showBarChart(barChart: BarChart) {

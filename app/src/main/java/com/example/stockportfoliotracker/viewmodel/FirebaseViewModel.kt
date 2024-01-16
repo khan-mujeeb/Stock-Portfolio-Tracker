@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.stockportfoliotracker.data.StockInfo
 import com.example.stockportfoliotracker.data.StockItemView
 import com.example.stockportfoliotracker.data.User
 import com.example.stockportfoliotracker.repository.FirebaseRepository
@@ -16,10 +17,18 @@ class FirebaseViewModel(
     fun readStockList(): MutableLiveData<List<StockItemView>> {
         return repository.readStockList()
     }
+
+
     fun addUser(user: User, phonenumber: String, currentContext: Context, GoToNextActivity: AppCompatActivity) {
         repository.addUser(user, phonenumber, currentContext, GoToNextActivity)
     }
 
+    fun addUpdateOverviewData(overviewData: StockInfo) {
+        repository.addUpdateOverviewData(overviewData)
+    }
 
+    fun readOverviewData(): LiveData<StockInfo> {
+        return repository.readOverviewData()
+    }
 
 }

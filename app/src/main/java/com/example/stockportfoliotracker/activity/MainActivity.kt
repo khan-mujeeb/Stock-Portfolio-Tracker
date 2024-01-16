@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         }.attach()
     }
     private fun checkUserLoggedIn() {
-        if (FirebaseUtils.firebaseUser == null) {
+        if (FirebaseUtils.firebaseAuth.currentUser == null) {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }

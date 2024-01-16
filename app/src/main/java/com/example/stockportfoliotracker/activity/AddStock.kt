@@ -7,12 +7,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.stockportfoliotracker.data.Stock
 import com.example.stockportfoliotracker.data.StockInfo
 import com.example.stockportfoliotracker.databinding.ActivityAddStockBinding
 import com.example.stockportfoliotracker.utils.DialogUtils
 import com.example.stockportfoliotracker.utils.FirebaseUtils.firebaseDatabase
 import com.example.stockportfoliotracker.utils.FirebaseUtils.firebaseUser
+import com.example.stockportfoliotracker.viewmodel.FirebaseViewModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -27,6 +29,7 @@ class AddStock : AppCompatActivity() {
     private val calendar = Calendar.getInstance()
     private var selectedBuyDate = ""
     private var selectedSellDate = ""
+    private lateinit var viewModel: FirebaseViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +41,7 @@ class AddStock : AppCompatActivity() {
     }
 
     private fun variableInit() {
+        viewModel = ViewModelProvider(this)[FirebaseViewModel::class.java]
         dialog = DialogUtils.buildLoadingDialog(this@AddStock)
     }
 
@@ -96,13 +100,18 @@ class AddStock : AppCompatActivity() {
 
                             val units = stockInfo.units + stock.units
 
+                            val temp = StockInfo(
+                                stock.name, stock.buyPrice * stock.units, (stock.sellPrice - stock.buyPrice) * stock.units, (profit / investedAmount) * 100, stockInfo.units + stock.units
+                            )
+
+
                             stockRef.child("stockInfo").setValue(
                                 StockInfo(
                                     stock.name,
                                     investedAmount, profit, profitGain, units
                                 )
                             ).addOnCompleteListener {
-                                handleStockAddSuccess()
+                                handleStockAddSuccess(temp)
                             }
                         }
                         .addOnFailureListener {
@@ -122,12 +131,13 @@ class AddStock : AppCompatActivity() {
                                 String.format("%.2f", (profit / investedAmount) * 100).toDouble()
                             val units = stock.units
 
+                            val temp = StockInfo(
+                                stock.name, investedAmount, profit, change, units
+                            )
                             stockRef.child("stockInfo").setValue(
-                                StockInfo(
-                                    stock.name, investedAmount, profit, change, units
-                                )
+                                temp
                             ).addOnCompleteListener {
-                                handleStockAddSuccess()
+                                handleStockAddSuccess(temp)
                             }
                         }
                         .addOnFailureListener {
@@ -142,8 +152,9 @@ class AddStock : AppCompatActivity() {
         })
     }
 
-    private fun handleStockAddSuccess() {
+    private fun handleStockAddSuccess(stockInfo: StockInfo) {
         dialog.dismiss()
+        viewModel.addUpdateOverviewData(stockInfo)
         Toast.makeText(this@AddStock, "Stock added successfully", Toast.LENGTH_SHORT).show()
         startActivity(Intent(this@AddStock, MainActivity::class.java))
         finish()

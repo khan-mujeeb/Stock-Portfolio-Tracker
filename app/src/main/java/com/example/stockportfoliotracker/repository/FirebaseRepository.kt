@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.stockportfoliotracker.data.Stock
+import com.example.stockportfoliotracker.data.StockInfo
 import com.example.stockportfoliotracker.data.StockItemView
 import com.example.stockportfoliotracker.data.User
 import com.example.stockportfoliotracker.utils.FirebaseUtils
@@ -19,6 +19,7 @@ class FirebaseRepository {
 
     val databaseReference = FirebaseUtils.firebaseDatabase.reference
     val stockRef = databaseReference.child(FirebaseUtils.firebaseUser!!.uid).child("stocks")
+
     //    add user
     fun addUser(
         user: User,
@@ -26,7 +27,6 @@ class FirebaseRepository {
         currentContext: Context,
         GoToNextActivity: AppCompatActivity
     ) {
-
 
 
         databaseReference.child("users").child(phonenumber).setValue(user).addOnSuccessListener {
@@ -46,9 +46,80 @@ class FirebaseRepository {
             }
 
 
+    }
 
+    // add update Overview Data
+    fun addUpdateOverviewData(
+        overviewData: StockInfo
+    ) {
+
+        databaseReference.child(FirebaseUtils.firebaseUser!!.uid)
+            .child("overviewData").addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        val stockInfo = snapshot.getValue(StockInfo::class.java)
+
+                            val investedAmount = stockInfo!!.investedAmount + overviewData.investedAmount
+                            val profitAmount = stockInfo.profitAmount + overviewData.profitAmount
+                            val profitGain =  String.format("%.2f", (profitAmount / investedAmount) * 100).toDouble()
+
+                            val updatedData = StockInfo(
+                                stockInfo.stockName,
+                                investedAmount,
+                                profitAmount,
+                                profitGain
+
+                            )
+                            println("investedAmount: ${stockInfo!!.investedAmount} + ${overviewData.investedAmount} = $investedAmount")
+                            addStockInfo(updatedData)
+
+                    } else {
+                        addStockInfo(overviewData)
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Handle error if needed
+
+                }
+            })
 
     }
+
+    fun addStockInfo(stockInfo: StockInfo) {
+
+        databaseReference.child(FirebaseUtils.firebaseUser!!.uid)
+            .child("overviewData").setValue(stockInfo).addOnSuccessListener {
+
+            }
+
+            .addOnFailureListener {
+
+            }
+    }
+
+    fun readOverviewData(): LiveData<StockInfo> {
+        val overviewData = MutableLiveData<StockInfo>()
+
+        databaseReference.child(FirebaseUtils.firebaseUser!!.uid)
+            .child("overviewData").addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        val stockInfo = snapshot.getValue(StockInfo::class.java)
+                        overviewData.value = stockInfo!!
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Handle error if needed
+
+                }
+            })
+
+        return overviewData
+    }
+
+
 
     // read stocks list
     fun readStockList(): MutableLiveData<List<StockItemView>> {
@@ -76,7 +147,6 @@ class FirebaseRepository {
     }
 
     // get Stock details
-
 
 
 }

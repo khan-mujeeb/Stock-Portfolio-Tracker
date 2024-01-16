@@ -44,7 +44,7 @@ class StockDetailAdapter(private val stockList: MutableList<Stock>) :
         holder.invested.text = "₹$investedAmount"
         holder.profit.text = "₹$profitAmount"
         holder.units.text = stock.units.toString()
-        holder.change.text = "${profitGain}%"
+        holder.change.text = String.format("%.2f", profitGain) + "%"
         holder.buyDate.text = stock.buyDate
         holder.sellDate.text = stock.sellDate
         holder.sellPrice.text = "₹${stock.sellPrice}"
