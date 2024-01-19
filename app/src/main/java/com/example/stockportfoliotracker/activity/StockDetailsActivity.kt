@@ -3,11 +3,13 @@ package com.example.stockportfoliotracker.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.ViewModelProvider
 import com.example.stockportfoliotracker.adapter.StockDetailAdapter
 import com.example.stockportfoliotracker.data.Stock
 import com.example.stockportfoliotracker.data.StockInfo
 import com.example.stockportfoliotracker.databinding.ActivityStockDetailsBinding
 import com.example.stockportfoliotracker.utils.FirebaseUtils
+import com.example.stockportfoliotracker.viewmodel.FirebaseViewModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -15,6 +17,7 @@ import com.google.firebase.database.ValueEventListener
 class StockDetailsActivity : AppCompatActivity() {
 
     var binding: ActivityStockDetailsBinding? = null
+    private lateinit var viewModel: FirebaseViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityStockDetailsBinding.inflate(layoutInflater)
@@ -32,6 +35,7 @@ class StockDetailsActivity : AppCompatActivity() {
                 onBackPressed()
             }
 
+            variableInit()
 
             val databaseReference = FirebaseUtils.firebaseDatabase.reference
             val stockRef = databaseReference.child(FirebaseUtils.firebaseUser!!.uid).child("stocks")
@@ -45,7 +49,7 @@ class StockDetailsActivity : AppCompatActivity() {
                         val stock = stockSnapshot.getValue(Stock::class.java)
                         stockList.add(stock!!)
                     }
-                    binding?.stockDetailsRc?.adapter = StockDetailAdapter(stockList)
+                    binding?.stockDetailsRc?.adapter = StockDetailAdapter(this@StockDetailsActivity, stockList, viewModel)
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -53,5 +57,9 @@ class StockDetailsActivity : AppCompatActivity() {
                 }
             })
         }
+    }
+
+    private fun variableInit() {
+        viewModel = ViewModelProvider(this)[FirebaseViewModel::class.java]
     }
 }

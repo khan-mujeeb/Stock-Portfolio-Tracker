@@ -8,4 +8,9 @@ object FirebaseUtils {
     var firebaseUser = firebaseAuth.currentUser
     var firebaseDatabase = FirebaseDatabase.getInstance()
 
+
+
+    val yearlyData = "yearlyData"
+    val stockInfo = "stockInfo"
+
 }

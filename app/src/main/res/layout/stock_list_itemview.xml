@@ -64,6 +64,15 @@
                 android:text="@string/proft"/>
 
             <TextView
+                android:id="@+id/changeText"
+                style="@style/textSubHeading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="_"
+                android:textAlignment="textEnd"
+                android:textColor="@color/seaGreen" />
+
+            <TextView
                 android:textColor="@color/seaGreen"
                 android:textAlignment="textStart"
                 style="@style/textSubHeading"
@@ -115,14 +124,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/change"/>
 
-            <TextView
-                android:textColor="@color/seaGreen"
-                android:layout_width="match_parent"
-                android:textAlignment="textEnd"
-                style="@style/textSubHeading"
-                android:layout_height="wrap_content"
-                android:id="@+id/changeText"
-                android:text="000"/>
         </LinearLayout>
     </RelativeLayout>
 

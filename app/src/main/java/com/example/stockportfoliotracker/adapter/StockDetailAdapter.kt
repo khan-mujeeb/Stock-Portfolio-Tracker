@@ -1,16 +1,22 @@
 package com.example.stockportfoliotracker.adapter
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stockportfoliotracker.R
+import com.example.stockportfoliotracker.activity.AddStock
+import com.example.stockportfoliotracker.activity.StockDetailsActivity
 import com.example.stockportfoliotracker.data.Stock
 import com.example.stockportfoliotracker.data.StockInfo
+import com.example.stockportfoliotracker.viewmodel.FirebaseViewModel
 
-class StockDetailAdapter(private val stockList: MutableList<Stock>) :
+class StockDetailAdapter(val context: Context, private val stockList: MutableList<Stock>, val viewModel: FirebaseViewModel) :
     RecyclerView.Adapter<StockDetailAdapter.StockDetailViewHolder>() {
+
 
     class StockDetailViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val invested: TextView = itemView.findViewById(R.id.investedText)
@@ -21,6 +27,7 @@ class StockDetailAdapter(private val stockList: MutableList<Stock>) :
         val sellDate: TextView = itemView.findViewById(R.id.sellDateText)
         val sellPrice: TextView = itemView.findViewById(R.id.sellPriceText)
         val buyPrice: TextView = itemView.findViewById(R.id.buyPriceTextView)
+        val deleteBtn: TextView = itemView.findViewById(R.id.deleteBtn)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StockDetailViewHolder {
@@ -49,6 +56,20 @@ class StockDetailAdapter(private val stockList: MutableList<Stock>) :
         holder.sellDate.text = stock.sellDate
         holder.sellPrice.text = "₹${stock.sellPrice}"
         holder.buyPrice.text = "₹${stock.buyPrice}"
+
+        holder.itemView.setOnClickListener{
+            val intent = Intent(context, AddStock::class.java)
+            intent.putExtra("from", "edit")
+            intent.putExtra("stockInfo", stock)
+            context.startActivity(intent)
+        }
+
+
+        holder.deleteBtn.setOnClickListener {
+            viewModel.removeStock(stock)
+        }
+
+
     }
 
     override fun getItemCount(): Int {

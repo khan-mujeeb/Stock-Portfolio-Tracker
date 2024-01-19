@@ -3,6 +3,7 @@ package com.example.stockportfoliotracker.activity
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils.substring
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -30,6 +31,7 @@ class AddStock : AppCompatActivity() {
     private var selectedBuyDate = ""
     private var selectedSellDate = ""
     private lateinit var viewModel: FirebaseViewModel
+    private var sellPrice = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +48,18 @@ class AddStock : AppCompatActivity() {
     }
 
     private fun subscribeUi() {
-        // setInitialDate() // If you need this, uncomment and implement it
+        val from = intent.getStringExtra("from")
+        val stock = intent.getParcelableExtra("stockInfo") as Stock?
+
+        if (from == "edit") {
+            binding!!.stockName.setText(stock!!.name)
+            binding!!.units.setText(stock.units.toString())
+            binding!!.buyPrice.setText(stock.buyPrice.toString())
+            binding!!.sellPrice.setText(stock.sellPrice.toString())
+            binding!!.buyDatePicker.text = stock.buyDate
+            binding!!.sellDatePicker.text = stock.sellDate
+
+        }
     }
 
     private fun subscribeClicks() {
@@ -57,14 +70,19 @@ class AddStock : AppCompatActivity() {
     private fun addStock() {
         binding!!.addStockButton.setOnClickListener {
             if (validateInput()) {
+                if(binding!!.sellPrice.text.toString().isNotEmpty()) {
+                    sellPrice = binding!!.sellPrice.text.toString().toDouble()
+                }
                 dialog.show()
                 val stock = Stock(
+                    "",
                     binding!!.stockName.text.toString(),
                     selectedBuyDate,
                     selectedSellDate,
                     binding!!.units.text.toString().toInt(),
                     binding!!.buyPrice.text.toString().toDouble(),
-                    binding!!.sellPrice.text.toString().toDouble()
+                    sellPrice
+
                 )
                 addStockToFb(stock)
             } else {
@@ -76,8 +94,10 @@ class AddStock : AppCompatActivity() {
     private fun addStockToFb(stock: Stock) {
         val databaseReference = firebaseDatabase.reference
         val stockRef = databaseReference.child(firebaseUser!!.uid).child("stocks")
-            .child(stock.name)
+            .child(stock.name!!)
         val uniqueId = databaseReference.push().key.toString()
+
+        stock.id = uniqueId
 
         stockRef.child("stockInfo").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -86,6 +106,8 @@ class AddStock : AppCompatActivity() {
 
                     stockRef.child("list").child(uniqueId).setValue(stock)
                         .addOnSuccessListener {
+
+                            viewModel.addYearWiseData(stock, stock.sellDate!!.substring(6, 10))
 
                             val investedAmount = String.format(
                                 "%.2f",
@@ -111,7 +133,7 @@ class AddStock : AppCompatActivity() {
                                     investedAmount, profit, profitGain, units
                                 )
                             ).addOnCompleteListener {
-                                handleStockAddSuccess(temp, stock.sellDate)
+                                handleStockAddSuccess(temp)
                             }
                         }
                         .addOnFailureListener {
@@ -121,6 +143,9 @@ class AddStock : AppCompatActivity() {
                 } else {
                     stockRef.child("list").child(uniqueId).setValue(stock)
                         .addOnSuccessListener {
+
+                            viewModel.addYearWiseData(stock, stock.sellDate!!.substring(6, 10))
+
                             val investedAmount =
                                 String.format("%.2f", stock.buyPrice * stock.units).toDouble()
                             val profit = String.format(
@@ -137,7 +162,7 @@ class AddStock : AppCompatActivity() {
                             stockRef.child("stockInfo").setValue(
                                 temp
                             ).addOnCompleteListener {
-                                handleStockAddSuccess(temp, stock.sellDate)
+                                handleStockAddSuccess(temp)
                             }
                         }
                         .addOnFailureListener {
@@ -152,13 +177,10 @@ class AddStock : AppCompatActivity() {
         })
     }
 
-    private fun handleStockAddSuccess(stockInfo: StockInfo, sellDate: String) {
+    private fun handleStockAddSuccess(stockInfo: StockInfo) {
 
 
         viewModel.addUpdateOverviewData(stockInfo)
-        val year = sellDate.substring(6, 10)
-
-
 
         dialog.dismiss()
         Toast.makeText(this@AddStock, "Stock added successfully", Toast.LENGTH_SHORT).show()
@@ -212,7 +234,5 @@ class AddStock : AppCompatActivity() {
         return binding!!.stockName.text.toString().isNotEmpty()
                 && binding!!.units.text.toString().isNotEmpty()
                 && binding!!.buyPrice.text.toString().isNotEmpty()
-                && binding!!.sellPrice.text.toString().isNotEmpty()
-                && selectedBuyDate.isNotEmpty() && selectedSellDate.isNotEmpty()
     }
 }

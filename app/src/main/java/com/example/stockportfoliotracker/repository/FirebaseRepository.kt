@@ -7,11 +7,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.stockportfoliotracker.data.Stock
 import com.example.stockportfoliotracker.data.StockInfo
 import com.example.stockportfoliotracker.data.StockItemView
 import com.example.stockportfoliotracker.data.User
 import com.example.stockportfoliotracker.data.YearlyProfit
 import com.example.stockportfoliotracker.utils.FirebaseUtils
+import com.example.stockportfoliotracker.utils.FirebaseUtils.stockInfo
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -19,7 +21,13 @@ import com.google.firebase.database.ValueEventListener
 class FirebaseRepository {
 
     val databaseReference = FirebaseUtils.firebaseDatabase.reference
+    val userRef = databaseReference.child(FirebaseUtils.firebaseUser!!.uid)
     val stockRef = databaseReference.child(FirebaseUtils.firebaseUser!!.uid).child("stocks")
+
+
+    /*
+            ADD FUNCTIONS
+     */
 
     //    add user
     fun addUser(
@@ -87,35 +95,15 @@ class FirebaseRepository {
 
     }
 
-//    fun addYearWiseData(data: YearlyProfit) {
-//        databaseReference.child(FirebaseUtils.firebaseUser!!.uid)
-//            .child("yearlyData").addListenerForSingleValueEvent(object : ValueEventListener {
-//                override fun onDataChange(snapshot: DataSnapshot) {
-//                    if (snapshot.exists()) {
-//                        val yearlyData = snapshot.getValue(YearlyProfit::class.java)
-//
-//                        val investedAmount = yearlyData!! + data.investedAmount
-//                        val profitAmount = yearlyData.profitAmount + data.profitAmount
-//                        val profitGain =  String.format("%.2f", (profitAmount / investedAmount) * 100).toDouble()
-//
-//                        val updatedData = YearlyProfit(
-//                            yearlyData.year,
-//                            profitAmount,
-//                        )
-////                        println("investedAmount: ${yearlyData!!.investedAmount} + ${data.investedAmount} = $investedAmount")
-////                        addYearlyData(updatedData)
-//
-//                    } else {
-//                        addYearlyData(data)
-//                    }
-//                }
-//
-//                override fun onCancelled(error: DatabaseError) {
-//                    // Handle error if needed
-//
-//                }
-//            })
-//    }
+    fun addYearWiseData(stock: Stock, year: String) {
+        databaseReference.child(FirebaseUtils.firebaseUser!!.uid)
+            .child("yearlyData").child(year).child(stock.id!!).setValue(stock).addOnSuccessListener {
+
+            }
+            .addOnFailureListener {
+
+            }
+    }
 
     fun addStockInfo(stockInfo: StockInfo) {
 
@@ -128,6 +116,15 @@ class FirebaseRepository {
 
             }
     }
+
+
+
+
+
+
+    /*
+            READ FUNCTIONS
+     */
 
     fun readOverviewData(): LiveData<StockInfo> {
         val overviewData = MutableLiveData<StockInfo>()
@@ -180,4 +177,129 @@ class FirebaseRepository {
     // get Stock details
 
 
+    /*
+            UPDATE FUNCTIONS
+     */
+
+
+    /*
+            DELETE FUNCTIONS
+     */
+
+    fun deleteStock(stock: Stock) {
+
+        // delete form year wise list
+        val year = stock.sellDate!!.substring(6, 10)
+        userRef.child(FirebaseUtils.yearlyData).child(year).child(stock.id!!).removeValue()
+
+        // delete from stock list
+        stockRef.child(stock.name!!).child("list").child(stock.id!!).removeValue()
+            .addOnSuccessListener {
+                stockRef.child(stock.name!!).child(stockInfo).addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        val stockInfo = snapshot.getValue(StockInfo::class.java)
+                        if (snapshot.exists()) {
+                            val investedAmount = String.format(
+                                "%.2f",
+                                (stockInfo!!.investedAmount - stock.buyPrice * stock.units)
+                            ).toDouble()
+
+                            if (investedAmount == 0.0) {
+                                stockRef.child(stock.name!!).removeValue()
+                            } else {
+                                val profit = String.format(
+                                    "%.2f",
+                                    (stockInfo.profitAmount - (stock.sellPrice - stock.buyPrice) * stock.units)
+                                ).toDouble()
+                                val profitGain =
+                                    String.format("%.2f", (profit / investedAmount) * 100).toDouble()
+
+                                val units = stockInfo.units - stock.units
+
+                                val temp = StockInfo(
+                                    stockInfo.stockName,
+                                    investedAmount,
+                                    profit,
+                                    profitGain,
+                                    units
+                                )
+
+                                stockRef.child(stock.name!!).child(FirebaseUtils.stockInfo).setValue(temp)
+                                    .addOnSuccessListener {
+
+                                    }
+                                    .addOnFailureListener {
+
+                                    }
+                            }
+
+
+                        }
+
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        // Handle error if needed
+
+                    }
+                })
+
+            }
+            .addOnFailureListener {
+
+            }
+
+
+
+        // delete from overview data
+        userRef.child("overviewData").addListenerForSingleValueEvent(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val stockInfo = snapshot.getValue(StockInfo::class.java)
+                if (snapshot.exists()) {
+                    val investedAmount = String.format(
+                        "%.2f",
+                        (stockInfo!!.investedAmount - stock.buyPrice * stock.units)
+                    ).toDouble()
+
+                    if (investedAmount == 0.0) {
+                        userRef.child("overviewData").removeValue()
+                    } else {
+                        val profit = String.format(
+                            "%.2f",
+                            (stockInfo.profitAmount - (stock.sellPrice - stock.buyPrice) * stock.units)
+                        ).toDouble()
+                        val profitGain =
+                            String.format("%.2f", (profit / investedAmount) * 100).toDouble()
+
+                        val units = stockInfo.units - stock.units
+
+                        val temp = StockInfo(
+                            stockInfo.stockName,
+                            investedAmount,
+                            profit,
+                            profitGain,
+                            units
+                        )
+
+                        userRef.child("overviewData").setValue(temp)
+                            .addOnSuccessListener {
+
+                            }
+                            .addOnFailureListener {
+
+                            }
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
+
+    }
+
+
 }
+
