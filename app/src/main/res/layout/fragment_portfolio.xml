@@ -33,6 +33,7 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/stock_list_itemview"
         android:layout_below="@id/search"
+        android:layout_above="@id/bottomNav"
         android:layout_alignParentEnd="true"/>
 
     <TextView
@@ -46,11 +47,56 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/addBtn"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@id/bottomNav"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:src="@drawable/ic_add"
         android:contentDescription="@string/todo" />
+
+    <LinearLayout
+        android:background="@color/white"
+        android:elevation="10dp"
+        android:id="@+id/bottomNav"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/sortBtn"
+                android:padding="10dp"
+                android:drawablePadding="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/sort"
+                app:drawableStartCompat="@drawable/baseline_compare_arrows_24" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:gravity="center"
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/filterBtn"
+                android:padding="10dp"
+                android:drawablePadding="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/filter"
+                app:drawableStartCompat="@drawable/baseline_filter_alt_24" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>

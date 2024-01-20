@@ -26,4 +26,7 @@
     <string name="change">Change</string>
     <string name="no_stock_found">No Stock Found</string>
     <string name="search">Search</string>
+    <string name="sort">SORT</string>
+    <string name="filter">FILTER</string>
+    <string name="sort_by">SORT BY</string>
 </resources>

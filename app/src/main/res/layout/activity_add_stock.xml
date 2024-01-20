@@ -19,7 +19,7 @@
 
     <LinearLayout
 
-        android:gravity="center_vertical"
+        android:gravity="top"
         android:padding="12dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
