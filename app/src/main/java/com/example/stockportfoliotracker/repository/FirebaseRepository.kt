@@ -118,6 +118,30 @@ class FirebaseRepository {
     }
 
 
+    fun addYear(year: String) {
+        databaseReference.child(FirebaseUtils.firebaseUser!!.uid)
+            .child("year").child(year).addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (!snapshot.exists()) {
+                        databaseReference.child(FirebaseUtils.firebaseUser!!.uid)
+                            .child("year").setValue(year).addOnSuccessListener {
+
+                            }
+
+                            .addOnFailureListener {
+
+                            }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Handle error if needed
+
+                }
+            })
+    }
+
+
 
 
 
@@ -125,6 +149,33 @@ class FirebaseRepository {
     /*
             READ FUNCTIONS
      */
+
+    fun readYearList(): LiveData<List<String>> {
+        val yearList = MutableLiveData<List<String>>()
+
+        databaseReference.child(FirebaseUtils.firebaseUser!!.uid)
+            .child("year").addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val years = mutableListOf<String>()
+
+                    if (snapshot.exists()) {
+                        for (yearSnapshot in snapshot.children) {
+                            val year = yearSnapshot.getValue(String::class.java)
+                            year?.let { years.add(it) }
+                        }
+                    }
+
+                    yearList.value = years
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Handle error if needed
+
+                }
+            })
+
+        return yearList
+    }
 
     fun readOverviewData(): LiveData<StockInfo> {
         val overviewData = MutableLiveData<StockInfo>()

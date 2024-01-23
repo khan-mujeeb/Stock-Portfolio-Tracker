@@ -40,4 +40,12 @@ class FirebaseViewModel(
         repository.deleteStock(stock)
     }
 
+    fun readYearList(): LiveData<List<String>> {
+        return repository.readYearList()
+    }
+
+    fun addYear(year: String) {
+        repository.addYear(year)
+    }
+
 }

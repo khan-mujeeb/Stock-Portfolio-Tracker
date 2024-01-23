@@ -181,6 +181,7 @@ class AddStock : AppCompatActivity() {
 
 
         viewModel.addUpdateOverviewData(stockInfo)
+        viewModel.addYear(selectedBuyDate.substring(6, 10))
 
         dialog.dismiss()
         Toast.makeText(this@AddStock, "Stock added successfully", Toast.LENGTH_SHORT).show()
