@@ -124,7 +124,7 @@ class FirebaseRepository {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (!snapshot.exists()) {
                         databaseReference.child(FirebaseUtils.firebaseUser!!.uid)
-                            .child("year").setValue(year).addOnSuccessListener {
+                            .child("year").child(year).setValue(year).addOnSuccessListener {
 
                             }
 

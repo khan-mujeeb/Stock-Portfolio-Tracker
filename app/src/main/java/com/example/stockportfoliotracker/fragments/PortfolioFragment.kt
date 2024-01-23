@@ -7,12 +7,8 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
-
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stockportfoliotracker.activity.AddStock
@@ -23,7 +19,6 @@ import com.example.stockportfoliotracker.utils.DialogUtils
 import com.example.stockportfoliotracker.utils.utils
 import com.example.stockportfoliotracker.utils.utils.sortBy
 import com.example.stockportfoliotracker.viewmodel.FirebaseViewModel
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
 class PortfolioFragment : Fragment() {
@@ -52,8 +47,16 @@ class PortfolioFragment : Fragment() {
 
     private fun subscribeUi() {
 
-
+        getYearList()
         getStockList()
+    }
+
+    private fun getYearList() {
+        viewModel.readYearList().observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                utils.yearList = it
+            }
+        }
     }
 
     private fun updateRecyclerView( stockList: List<StockItemView>, adapter: StockListAdapter) {
@@ -90,7 +93,7 @@ class PortfolioFragment : Fragment() {
                             updateRecyclerView(list, adapter)
                             dialog.dismiss()
                             showRC(list, adapter, binding!!.stockListRc)
-                            
+
 
                         }
                         "quantity" -> {
@@ -98,7 +101,7 @@ class PortfolioFragment : Fragment() {
                             updateRecyclerView(list, adapter)
                             dialog.dismiss()
                             showRC(list, adapter, binding!!.stockListRc)
-                            
+
 
 
                         }
@@ -108,7 +111,7 @@ class PortfolioFragment : Fragment() {
                             dialog.dismiss()
                             showRC(list, adapter, binding!!.stockListRc)
 
-                            
+
 
 
                         }
@@ -117,7 +120,7 @@ class PortfolioFragment : Fragment() {
                             updateRecyclerView(list, adapter)
                             dialog.dismiss()
                             showRC(list, adapter, binding!!.stockListRc)
-                            
+
 
 
                         }
@@ -126,12 +129,12 @@ class PortfolioFragment : Fragment() {
                             updateRecyclerView(list, adapter)
                             dialog.dismiss()
                             showRC(list, adapter, binding!!.stockListRc)
-                            
+
 
 
                         }
 
-                        
+
                     }
                 }
 
@@ -203,6 +206,8 @@ class PortfolioFragment : Fragment() {
         bottomSheetFragment = FilterBottomSheetFragment()
         sortBottomSheet = SortBottomSheetFragment()
     }
+
+
 
 
 }
